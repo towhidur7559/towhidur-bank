@@ -32,7 +32,7 @@
             <div class="col-md-4">
                 <div class="withdraw status">
                     <h5>Withdraw</h5>
-                    <h2>$00</h2>
+                    <h2>$<span id="currentWithdraw">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -97,10 +97,16 @@
             document.getElementById("depositAmount").value = "";
             
         })
-        function updateSpanText(id, depositNumber){
+        // function updateSpanText(id, depositNumber){
+        //     const current = document.getElementById(id).innerText;
+        //     const currentNumber = parseFloat(current);
+        //     const total = depositNumber + currentNumber;
+        //     document.getElementById(id).innerText = total;  
+        // }
+        function updateSpanText(id, addedNumber){
             const current = document.getElementById(id).innerText;
             const currentNumber = parseFloat(current);
-            const total = depositNumber + currentNumber;
+            const total = addedNumber + currentNumber;
             document.getElementById(id).innerText = total;  
         }
 
@@ -108,12 +114,21 @@
         const withdrawBtn = document.getElementById("addWithdraw");
         withdrawBtn.addEventListener("click",function(){
            const withdrawNumber = getInputNumber("withdrawAmount"); 
-           console.log(withdrawNumber);
+
+           updateSpanText("currentWithdraw", withdrawNumber);
+           updateSpanText("currentBalance", -1* withdrawNumber);
+           //console.log(withdrawNumber);
+           document.getElementById("withdrawAmount").value = "";
         })
+        // function getInputNumber(id){
+        //     const withdrawAmount = document.getElementById(id).value;
+        //     const withdrawNumber = parseFloat(withdrawAmount);
+        //     return withdrawNumber;
+        // }
         function getInputNumber(id){
-            const withdrawAmount = document.getElementById(id).value;
-            const withdrawNumber = parseFloat(withdrawAmount);
-            return withdrawNumber;
+                const amount = document.getElementById(id).value;
+                const amountNumber = parseFloat(amount);
+                return amountNumber;
         }
 
     </script>
